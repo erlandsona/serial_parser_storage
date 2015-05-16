@@ -4,21 +4,26 @@ require 'highline/import'
 Dir["./app/**/*.rb"].each { |f| require f }
 Dir["./lib/*.rb"].each { |f| require f }
 
-menu_prompt = <<EOS
-1. Add a scenario
-2. List all scenarios
-3. Exit
-EOS
+# if ARGV.size == 1 and ARGV[0] == "manage"
+#   loop do
+#     choose do |menu|
+#       menu.prompt = ""
 
-if ARGV.size == 1 and ARGV[0] == "manage"
-  choose do |menu|
-    menu.prompt = ""
-
-    scenarios_controller = ScenariosController.new
-    menu.choice('Add a scenario') { say("") }
-    menu.choice('List all scenarios') { scenarios_controller.index }
-    menu.choice('Exit') { say("Peace Out!\n") }
-  end
-else
-  puts "[Help] Run as: ./serial_parser_storage manage"
-end
+#       menu.choice('Add a scenario') do
+#         user_input = ask("What scenario would you like to add?")
+#         response = scenarios_controller.add(user_input)
+#         say(response) unless response.nil?
+#       end
+#       menu.choice('List all scenarios') do
+#         say(scenarios_controller.index)
+#         exit
+#       end
+#       menu.choice('Exit') do
+#         say("Peace Out!\n")
+#         exit
+#       end
+#     end
+#   end
+# else
+#   puts "[Help] Run as: ./serial_parser_storage manage"
+# end

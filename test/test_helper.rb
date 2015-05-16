@@ -12,14 +12,17 @@ require 'minitest/autorun'
 class Minitest::Test
   def setup
     Database.load_structure
-    Database.execute("DELETE FROM scenarios;")
+    Database.execute("DELETE FROM session;")
   end
 end
 
-def create_scenario(name)
-  Database.execute("INSERT INTO scenarios (name) VALUES (?)", name)
+def add_row(ids, sensor_ids, pressure_values)
+  Database.execute(
+    "INSERT INTO [session] (ids, sensor_ids, pressure_values, time_stamps)" +
+    "VALUES (?, ?, ?, strftime('%Y-%m-%d %H:%M:%f'))",
+    ids, sensor_ids, pressure_values)
 end
 
 def main_menu
-  "1. Add a scenario\n2. List all scenarios\n3. Exit\n"
+  "1. Add a scenario\n2. List all session\n3. Exit\n"
 end

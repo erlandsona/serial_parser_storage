@@ -5,4 +5,5 @@ source "https://rubygems.org"
 gem 'highline'
 gem 'minitest'
 gem 'minitest-reporters'
+gem 'serialport'
 gem 'sqlite3'

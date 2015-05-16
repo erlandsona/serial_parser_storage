@@ -4,9 +4,11 @@ class Database
 
   def self.load_structure
     Database.execute <<-SQL
-    CREATE TABLE IF NOT EXISTS scenarios (
-      id integer PRIMARY KEY AUTOINCREMENT,
-      name varchar(255) NOT NULL
+    CREATE TABLE IF NOT EXISTS [session] (
+      [ids]             INTEGER  NOT NULL  check(typeof("ids") = 'integer'),
+      [sensor_ids]      INTEGER  NOT NULL  check(typeof("sensor_ids") = 'integer'),
+      [pressure_values] INTEGER  NOT NULL  check(typeof("pressure_values") = 'integer'),
+      [time_stamps]     DATETIME NOT NULL
     );
     SQL
   end
@@ -18,7 +20,7 @@ class Database
 
   def self.initialize_database
     environment = ENV["TEST"] ? "test" : "production"
-    database = "db/would_you_rather_#{environment}.sqlite"
+    database = "db/serial_parser_storage_#{environment}.sqlite"
     @@db = SQLite3::Database.new(database)
   end
 end

@@ -1,5 +1,4 @@
-Script started on Tue May 12 20:44:25 2015
-[?1049h[!p[?3;4l[4l>[4l[?1h=[0m(B[1;46r[H[2J[H[2J 0:5F
+ 0:5F
  1: 1
  2:10
  3: 0
@@ -104168,7 +104167,3 @@ Script started on Tue May 12 20:44:25 2015
 15: 0
 16: 0
 17: 0
-[7mReally kill this window [y/n][27m[K                                                                                                                                                                             [?1l>[46;1H
-[?1049l[screen is terminating]
-
-Script done on Tue May 12 20:44:37 2015
