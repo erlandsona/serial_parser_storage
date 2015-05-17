@@ -1,9 +1,19 @@
 sp = SerialPort.new('/dev/tty.usbmodemfa141')
 
-# session_length is the number of seconds to record the serial stream.
-session_length = Time.now + 1 #Currently 1 is a magic num for 1 seconds
+session_length = Time.now + 0.1
+
+sync = false
 
 sp.each_line do |line|
   break if Time.now > session_length
-  print line
+  parsed_kvp_arr = line[/\w+:\s?\w+/].gsub(/\s/,'').split(':')
+  if parsed_kvp_arr[0].to_i == 0
+    sync = true
+  end
+  if sync
+    puts parsed_kvp_arr.to_s
+  end
 end
+
+sp.close
+
