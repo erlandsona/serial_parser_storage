@@ -13,14 +13,13 @@ end
 loop do
   choose do |menu|
     menu.prompt = ""
-    tableview = TableView.new
     menu.choice('Start a session') do
       user_input = ask("What scenario would you like to add?")
       response = scenarios_controller.add(user_input)
       say(response) unless response.nil?
     end
     menu.choice('Query a session') do
-      say(tableview.run)
+      say(Table.new.generate)
       exit
     end
     menu.choice('Exit') do
