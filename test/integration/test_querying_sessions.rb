@@ -15,13 +15,12 @@ class QueryingSessions < Minitest::Test
   end
 
   def test_listing_multiple_scenarios
-    # create_scenario("eat tiger meat")
-    # create_scenario("swallow a pencil")
+    record_sessions
     shell_output = ""
     expected_output = ""
     IO.popen('./serial_parser_storage', 'r+') do |pipe|
       expected_output << main_menu
-      pipe.puts "2" # list all scenarios
+      pipe.puts "2" # list all sessions
       expected_output += <<EOS
 ┏━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
 ┃ \e[1mNAME                \e[0m ┃ \e[1m                 ADDRESS                \e[0m ┃ \e[1m                          CITY\e[0m ┃

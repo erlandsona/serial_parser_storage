@@ -13,14 +13,23 @@ class Database
     SQL
   end
 
-  def self.execute(*args)
-    initialize_database unless defined?(@@db)
-    @@db.execute(*args)
-  end
-
   def self.initialize_database
     environment = ENV["TEST"] ? "test" : "production"
     database = "db/serial_parser_storage_#{environment}.sqlite"
     @@db = SQLite3::Database.new(database)
   end
+
+  def self.execute(*args)
+    initialize_database unless defined?(@@db)
+    @@db.execute(*args)
+  end
+
+  def self.prepare(*args)
+    @@db.prepare(*args)
+  end
+
+  def self.transaction(*args)
+    @@db.transaction(*args)
+  end
+
 end
