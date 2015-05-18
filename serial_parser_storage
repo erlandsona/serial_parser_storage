@@ -4,26 +4,26 @@ require 'highline/import'
 Dir["./app/**/*.rb"].each { |f| require f }
 Dir["./lib/*.rb"].each { |f| require f }
 
-# if ARGV.size == 1 and ARGV[0] == "manage"
-#   loop do
-#     choose do |menu|
-#       menu.prompt = ""
+if ARGV.length.nonzero?
+  puts "Please try again without any arguments...\n" +
+       "Try \"./serial_parser_storage\"\n"
+  exit
+end
 
-#       menu.choice('Add a scenario') do
-#         user_input = ask("What scenario would you like to add?")
-#         response = scenarios_controller.add(user_input)
-#         say(response) unless response.nil?
-#       end
-#       menu.choice('List all scenarios') do
-#         say(scenarios_controller.index)
-#         exit
-#       end
-#       menu.choice('Exit') do
-#         say("Peace Out!\n")
-#         exit
-#       end
-#     end
-#   end
-# else
-#   puts "[Help] Run as: ./serial_parser_storage manage"
-# end
+loop do
+  choose do |menu|
+    menu.prompt = ""
+    menu.choice('Start a session') do
+      user_input = ask("What scenario would you like to add?")
+      response = scenarios_controller.add(user_input)
+      say(response) unless response.nil?
+    end
+    menu.choice('Query a session') do
+      say("No sessions found.\n")
+      exit
+    end
+    menu.choice('Exit') do
+      exit
+    end
+  end
+end

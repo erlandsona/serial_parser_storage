@@ -6,15 +6,15 @@ require 'serialport'
 begin
 
   sp = SerialPort.new('/dev/tty.usbmodemfa141')
-  session_length = Time.now + 1
+  session_length = Time.now + 15
   sync = false
 
   database = SQLite3::Database.open "db/serial_parser_storage_test.sqlite"
-  database.execute("DELETE FROM session")
+  database.execute("DELETE FROM sessions")
 
 
   database.transaction do |db|
-    sql = db.prepare "INSERT INTO [session] (ids, sensor_ids, pressure_values, time_stamps) VALUES (?, ?, ?, strftime('%Y-%m-%d %H:%M:%f'));"
+    sql = db.prepare "INSERT INTO [sessions] (id, sensor_id, pressure_value, time_stamp) VALUES (?, ?, ?, strftime('%Y-%m-%d %H:%M:%f'));"
     sp.each_line do |line|
       break if Time.now > session_length
       temp_arr = line[/\w+:\s?\w+/].gsub(/\s/,'').split(':')
@@ -35,8 +35,7 @@ rescue SQLite3::Exception => e
 
 ensure
 
-  sql.close if sql
-  database.close if database
   sp.close if sp
 
 end
+
