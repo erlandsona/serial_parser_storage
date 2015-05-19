@@ -4,9 +4,5 @@ class Session
     Database.execute("SELECT * FROM sessions")
   end
 
-  def self.count
-    0
-  end
-
 end
 

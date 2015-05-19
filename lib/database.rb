@@ -29,9 +29,9 @@ class Database
     @@db.prepare(*args)
   end
 
-  def self.transaction(*args)
+  def self.transaction(*args, &block)
     initialize_database unless defined?(@@db)
-    @@db.transaction(*args)
+    @@db.transaction(*args, &block)
   end
 
 end
