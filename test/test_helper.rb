@@ -17,14 +17,18 @@ class Minitest::Test
   end
 end
 
-def record_sessions
-  Database.transaction do |db|
-    sql = Database.prepare "INSERT INTO [sessions] (id, sensor_id, pressure_value, time_stamp) VALUES (?, ?, ?, strftime('%Y-%m-%d %H:%M:%f'));"
-    File.foreach('./lib/serial_files/test_serial_raw_80_seconds.txt').first(50).each do |line|
-      temp_arr = line.split(':')
-      sql.execute(1, temp_arr[0].to_i(16) + 1, temp_arr[1].to_i(16) + 1)
+def record_test_sessions
+
+    Database.transaction do |db|
+      sql = Database.prepare("INSERT INTO [sessions] (id, sensor_id, pressure_value, time_stamp) VALUES (?, ?, ?, strftime('%Y-%m-%d %H:%M:%f'));")
+
+      File.foreach('./lib/serial_files/test_serial_raw_80_seconds.txt').first(100).each do |line|
+        temp_arr = line.split(':')
+        sql.execute(1, temp_arr[0].to_i(16) + 1, temp_arr[1].to_i(16) + 1)
+      end
+
     end
-  end
+
 end
 
 def main_menu

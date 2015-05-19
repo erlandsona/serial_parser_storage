@@ -22,13 +22,13 @@ class QueryingSessions < Minitest::Test
       expected_output << main_menu
       pipe.puts "2" # list all sessions
       expected_output += <<EOS
-┏━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
-┃ \e[1mNAME                \e[0m ┃ \e[1m                 ADDRESS                \e[0m ┃ \e[1m                          CITY\e[0m ┃
-┣━━━━━━━━━━━━━━━━━━━━━━╊━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╊━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┫
-┃ \e[35mCaesar              \e[0m ┃ \e[35m              1 Appian Way              \e[0m ┃ \e[35m                          Rome\e[0m ┃
-┣━━━━━━━━━━━━━━━━━━━━━━╊━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╊━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┫
-┃ \e[35mRichard Feynman     \e[0m ┃ \e[35m              1 Golden Gate             \e[0m ┃ \e[35m                 Quantum Field\e[0m ┃
-┗━━━━━━━━━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃ Stuff and more Stuffs Variable ┃ Stuff and more Stuffs Variable ┃ Stuff and more Stuffs Variable ┃
+┃            of course           ┃            of course           ┃            of course           ┃
+┣━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╊━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╊━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┫
+┃ Stuff and more Stuffs Variable ┃ Stuff and more Stuffs Variable ┃ Stuff and more Stuffs Variable ┃
+┃            of course           ┃            of course           ┃            of course           ┃
+┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
 EOS
       pipe.close_write
       shell_output = pipe.read

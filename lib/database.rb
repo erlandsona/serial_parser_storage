@@ -25,10 +25,12 @@ class Database
   end
 
   def self.prepare(*args)
+    initialize_database unless defined?(@@db)
     @@db.prepare(*args)
   end
 
   def self.transaction(*args)
+    initialize_database unless defined?(@@db)
     @@db.transaction(*args)
   end
 

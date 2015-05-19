@@ -1,33 +1,25 @@
 require 'command_line_reporter'
 
-
 class Table
+
   include CommandLineReporter
 
   def generate
+    suppress_output
 
     table(:border => true) do
-
-      row :header => true do
-        column('NAME', :width => 20)
-        column('ADDRESS', :width => 40, :align => 'center')
-        column('CITY', :width => 30, :align => 'right')
+      1.times do #number of rows.times do
+        row do
+          i = 0
+          4.times do #number of columns.times do
+            i += 10
+            column('', :align => "center", :width => 20)
+          end
+        end
       end
-
-      row :color => 'magenta' do
-        column('Caesar')
-        column('1 Appian Way')
-        column('Rome')
-      end
-
-      row :color => 'magenta' do
-        column('Richard Feynman')
-        column('1 Golden Gate')
-        column('Quantum Field')
-      end
-
     end
 
+    return capture_output
   end
 
 end
