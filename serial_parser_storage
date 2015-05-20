@@ -19,7 +19,7 @@ loop do
       Session.record(time: 1)
     end
     menu.choice('Query a session') do
-      say(Table.new.generate(pressure_value: 98))
+      say(Table.new.generate(pressure_value: 62))
       exit
     end
     menu.choice('Exit') do

@@ -8,11 +8,13 @@ class QueryingSessions < Minitest::Test
     IO.popen('./serial_parser_storage', 'r+') do |pipe|
       expected_output << main_menu
       pipe.puts "2"
+      expected_output << "No results were returned by you query...\n"
       expected_output += <<-TABLE
 ┏━━━━━━━━━━━┳━━━━━━━━━━━┳━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
 ┃ \e[1m\e[35mSession #\e[0m\e[0m ┃ \e[1m\e[35mSensor ID\e[0m\e[0m ┃ \e[1m\e[35mPressure Value\e[0m\e[0m ┃ \e[1m\e[35m        Time Stamp       \e[0m\e[0m ┃
 ┗━━━━━━━━━━━┻━━━━━━━━━━━┻━━━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
       TABLE
+      expected_output << main_menu
       pipe.close_write
       shell_output = pipe.read
     end

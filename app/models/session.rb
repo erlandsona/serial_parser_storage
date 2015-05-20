@@ -24,15 +24,15 @@ class Session
     exit_string = "qQzZxXcC/\e\n\s\r\177\004"
 
     Database.transaction do
-      sql = Database.prepare "INSERT INTO [sessions] (id, sensor_id, pressure_value, time_stamp) VALUES (?, ?, ?, strftime('%Y-%m-%d %H:%M:%f'));"
+      sql = Database.prepare "INSERT INTO [sessions] (id, sensor_id, pressure_value, time_stamp) VALUES (?, ?, ?, ?);"
       serial.each_line do |line|
         break if Time.now > session_length #or exit_string.include?(read_char)
         temp_arr = line[/\w+:\s?\w+/].gsub(/\s/,'').split(':')
-        if temp_arr[0].to_i == 0
+        if temp_arr[0].hex == 0
           sync = true
         end
         if sync
-          sql.execute(1, temp_arr[0].hex + 1, temp_arr[1].hex)
+          sql.execute(1, temp_arr[0].hex + 1, temp_arr[1].hex, Time.now.strftime('%Y-%m-%d %H:%M:%S %6N'))
         end
       end
     end

@@ -23,10 +23,10 @@ class Table
       end
 
       row :bold => true, :color => "magenta" do
-        column(head[:id], :align => "center")
-        column(head[:sensor_id], :align => "center")
-        column(head[:pressure_value], :align => "center")
-        column(head[:time_stamp], :align => "center")
+        column(head[:id], :align => "center", :width => head[:id].length)
+        column(head[:sensor_id], :align => "center", :width => head[:sensor_id].length)
+        column(head[:pressure_value], :align => "center", :width => head[:pressure_value].length)
+        column(head[:time_stamp], :align => "center", :width => head[:time_stamp].length)
       end
 
     end
