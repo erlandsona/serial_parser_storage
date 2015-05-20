@@ -7,9 +7,9 @@ class Session
     arguments = {id: id, sensor_id: sensor_id, pressure_value: pressure_value}.reject{|k, v| v.nil?}
     unless arguments.empty?
       statement << " WHERE"
-      statement << arguments.map { |key, val| " #{key.to_s}=#{val.to_s}" }.join(' AND')
+      statement << arguments.map { |key, val| " #{key}=#{val}" }.join(' AND')
     end
-    statement << ";"
+    statement << " ORDER BY rowid DESC;"
     Database.execute(statement)
   end
 
@@ -32,7 +32,7 @@ class Session
           sync = true
         end
         if sync
-          sql.execute(1, temp_arr[0].hex + 1, temp_arr[1].hex + 1)
+          sql.execute(1, temp_arr[0].hex + 1, temp_arr[1].hex)
         end
       end
     end

@@ -13,19 +13,20 @@ class Table
 
     table(:border => true) do
 
-      row :header => true, :bold => true, :color => "magenta" do
-        column(head[:id], :align => "center", :width => head[:id].length)
-        column(head[:sensor_id], :align => "center", :width => head[:sensor_id].length)
-        column(head[:pressure_value], :align => "center", :width => head[:pressure_value].length)
-        column(head[:time_stamp], :align => "center", :width => head[:time_stamp].length + 15)
-      end
-
       session.each do |row|
         row do
-          row.each do |column|
-            column(column, :align => "center")
-          end
+          column(row[0].to_s, :align => "left", :width => head[:id].length)
+          column(row[1].to_s, :align => "left", :width => head[:sensor_id].length)
+          column(row[2].to_s, :align => "left", :width => head[:pressure_value].length)
+          column(row[3].to_s, :align => "center", :width => row[3].length)
         end
+      end
+
+      row :bold => true, :color => "magenta" do
+        column(head[:id], :align => "center")
+        column(head[:sensor_id], :align => "center")
+        column(head[:pressure_value], :align => "center")
+        column(head[:time_stamp], :align => "center")
       end
 
     end
