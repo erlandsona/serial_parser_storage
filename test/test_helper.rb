@@ -19,12 +19,17 @@ end
 
 def record_test_sessions
 
-    Database.transaction do |db|
+    Database.transaction do
       sql = Database.prepare("INSERT INTO [sessions] (id, sensor_id, pressure_value, time_stamp) VALUES (?, ?, ?, strftime('%Y-%m-%d %H:%M:%f'));")
 
-      File.foreach('./lib/serial_files/test_serial_raw_80_seconds.txt').first(100).each do |line|
+      File.foreach('./lib/serial_files/test_serial_raw_80_seconds.txt').first(10).each do |line|
         temp_arr = line.split(':')
-        sql.execute(1, temp_arr[0].to_i(16) + 1, temp_arr[1].to_i(16) + 1)
+        sql.execute(1, temp_arr[0].hex + 1, temp_arr[1].hex + 1)
+      end
+
+      File.foreach('./lib/serial_files/test_serial_raw_15_seconds.txt').first(10).each do |line|
+        temp_arr = line.split(':')
+        sql.execute(2, temp_arr[0].hex + 1, temp_arr[1].hex + 1)
       end
 
     end
