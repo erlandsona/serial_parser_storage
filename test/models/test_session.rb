@@ -62,7 +62,17 @@ describe Session do
 
   end
 
+  describe "#record" do
 
+    describe "if the model is valid" do
+
+      it "should return true" do
+        assert Session.record(time: 1)
+      end
+
+    end
+
+  end
 
 
 end
