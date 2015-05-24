@@ -2,6 +2,7 @@
 source "https://rubygems.org"
 
 # gem "rails"
+gem 'activerecord'
 gem 'command_line_reporter'
 gem 'highline'
 gem 'minitest'

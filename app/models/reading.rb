@@ -1,15 +1,11 @@
 require 'serialport'
 
-class Reading
+class Reading < ActiveRecord::Base
   attr_accessor :id, :sensor_id, :pressure_value, :time_stamp
 
   def initialize(id: nil, sensor_id: nil, pressure_value: nil, time_stamp: nil)
-    self.id = id
-    self.sensor_id = sensor_id
-    self.pressure_value = pressure_value
-    self.time_stamp = time_stamp
+    super(id: id, sensor_id: sensor_id, pressure_value: pressure_value, time_stamp: time_stamp)
   end
-
 
   def self.find(id: nil, sensor_id: nil, pressure_value: nil)
     statement = "SELECT * FROM readings"
@@ -43,7 +39,7 @@ class Reading
           sync = true
         end
         if sync
-          sql.execute(1, temp_arr[0].hex + 1, temp_arr[1].hex, Time.now.strftime('%Y-%m-%d %H:%M:%S %6N'))
+          sql.execute(1, temp_arr[0].hex + 1, temp_arr[1].hex, Time.now.strftime('%Y-%m-%d %H:%M:%S.%6N'))
         end
       end
     end

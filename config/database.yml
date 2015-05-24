@@ -1,0 +1,13 @@
+default: &default
+  adapter: sqlite3
+  pool: 5
+  timeout: 5000
+
+
+production:
+  <<: *default
+  database: db/serial_parser_storage_production.sqlite
+
+test:
+  <<: *default
+  database: db/serial_parser_storage_test.sqlite

@@ -5,7 +5,7 @@ class Table
   include CommandLineReporter
 
   def generate(id: nil, sensor_id: nil, pressure_value: nil)
-    reading = Reading.find(id: id, sensor_id: sensor_id, pressure_value: pressure_value)
+    readings = Reading.find(id: id, sensor_id: sensor_id, pressure_value: pressure_value)
     head = {:id => "Session #", :sensor_id => "Sensor ID",
             :pressure_value => "Pressure Value", :time_stamp => "Time Stamp"}
 
@@ -13,14 +13,19 @@ class Table
 
     table(:border => true) do
 
-      reading.each do |row|
+      # Readings are returned in order from Oldest (at top) to newest (at bottom)
+      # to display correctly in a terminal.
+
+      readings.each do |reading|
         row do
-          column(row[0].to_s, :align => "left", :width => head[:id].length)
-          column(row[1].to_s, :align => "left", :width => head[:sensor_id].length)
-          column(row[2].to_s, :align => "left", :width => head[:pressure_value].length)
-          column(row[3].to_s, :align => "center", :width => row[3].length)
+          column(reading.id, :align => "left", :width => head[:id].length)
+          column(reading.sensor_id, :align => "left", :width => head[:sensor_id].length)
+          column(reading.pressure_value, :align => "left", :width => head[:pressure_value].length)
+          column(reading.time_stamp, :align => "center", :width => reading.time_stamp.length)
         end
       end
+
+      #Heading gets printed at bottom of output
 
       row :bold => true, :color => "magenta" do
         column(head[:id], :align => "center", :width => head[:id].length)

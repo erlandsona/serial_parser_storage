@@ -1,10 +1,11 @@
+ENV["TEST"] = "true"
 require 'rubygems'
 require 'bundler/setup'
-require "minitest/reporters"
+require 'minitest/reporters'
+require_relative '../lib/environment'
 
 Dir["./app/**/*.rb"].each { |f| require f }
 Dir["./lib/*.rb"].each { |f| require f }
-ENV["TEST"] = "true"
 
 reporter_options = { color: true }
 Minitest::Reporters.use! [Minitest::Reporters::DefaultReporter.new(reporter_options)]
