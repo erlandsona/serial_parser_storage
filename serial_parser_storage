@@ -16,7 +16,7 @@ loop do
   choose do |menu|
     menu.prompt = ""
     menu.choice('Start a session') do
-      Session.record(time: 1)
+      Reading.record(time: 1)
     end
     menu.choice('Query a session') do
       say(Table.new.generate(pressure_value: 62))

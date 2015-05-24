@@ -13,14 +13,14 @@ require 'minitest/autorun'
 class Minitest::Test
   def setup
     Database.load_structure
-    Database.execute("DELETE FROM sessions;")
+    Database.execute("DELETE FROM readings;")
   end
 end
 
-def record_test_sessions
+def record_test_readings
 
     Database.transaction do
-      sql = Database.prepare("INSERT INTO [sessions] (id, sensor_id, pressure_value, time_stamp) VALUES (?, ?, ?, strftime('%Y-%m-%d %H:%M:%f'));")
+      sql = Database.prepare("INSERT INTO [readings] (id, sensor_id, pressure_value, time_stamp) VALUES (?, ?, ?, strftime('%Y-%m-%d %H:%M:%f'));")
 
       File.foreach('./lib/serial_files/test_serial_raw_80_seconds.txt').first(10).each do |line|
         temp_arr = line.split(':')

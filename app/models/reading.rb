@@ -1,9 +1,9 @@
 require 'serialport'
 
-class Session
+class Reading
 
   def self.find(id: nil, sensor_id: nil, pressure_value: nil)
-    statement = "SELECT * FROM sessions"
+    statement = "SELECT * FROM readings"
     arguments = {id: id, sensor_id: sensor_id, pressure_value: pressure_value}.reject{|k, v| v.nil?}
     unless arguments.empty?
       statement << " WHERE"
@@ -19,14 +19,14 @@ class Session
     return connection_message if port.empty?
 
     serial = SerialPort.new(port)
-    session_length = Time.now + time
+    reading_length = Time.now + time
     sync = false
     exit_string = "qQzZxXcC/\e\n\s\r\177\004"
 
     Database.transaction do
-      sql = Database.prepare "INSERT INTO [sessions] (id, sensor_id, pressure_value, time_stamp) VALUES (?, ?, ?, ?);"
+      sql = Database.prepare "INSERT INTO [readings] (id, sensor_id, pressure_value, time_stamp) VALUES (?, ?, ?, ?);"
       serial.each_line do |line|
-        break if Time.now > session_length #or exit_string.include?(read_char)
+        break if Time.now > reading_length #or exit_string.include?(read_char)
         temp_arr = line[/\w+:\s?\w+/].gsub(/\s/,'').split(':')
         if temp_arr[0].hex == 0
           sync = true
