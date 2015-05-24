@@ -4,7 +4,7 @@ class Database
 
   def self.load_structure
     Database.execute <<-SQL
-    CREATE TABLE IF NOT EXISTS [sessions] (
+    CREATE TABLE IF NOT EXISTS [readings] (
       [id]             INTEGER  NOT NULL  check(typeof("id") = 'integer'),
       [sensor_id]      INTEGER  NOT NULL  check(typeof("sensor_id") = 'integer'),
       [pressure_value] INTEGER  NOT NULL  check(typeof("pressure_value") = 'integer'),

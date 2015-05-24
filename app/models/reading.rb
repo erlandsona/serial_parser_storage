@@ -1,6 +1,15 @@
 require 'serialport'
 
 class Reading
+  attr_accessor :id, :sensor_id, :pressure_value, :time_stamp
+
+  def initialize(id: nil, sensor_id: nil, pressure_value: nil, time_stamp: nil)
+    self.id = id
+    self.sensor_id = sensor_id
+    self.pressure_value = pressure_value
+    self.time_stamp = time_stamp
+  end
+
 
   def self.find(id: nil, sensor_id: nil, pressure_value: nil)
     statement = "SELECT * FROM readings"
@@ -10,7 +19,9 @@ class Reading
       statement << arguments.map { |key, val| " #{key}=#{val}" }.join(' AND')
     end
     statement << " ORDER BY rowid DESC;"
-    Database.execute(statement)
+    Database.execute(statement).map do |row|
+      populate_from_database(row)
+    end
   end
 
   def self.record(port: `ls /dev/tty.usb*`.chomp, time: 300) #time: 5 min default and can be stopped by pressing q at anytime.
@@ -43,6 +54,11 @@ class Reading
   end
 
   private
+
+  def self.populate_from_database(row)
+    reading = Reading.new(id: row[0], sensor_id: row[1], pressure_value: row[2], time_stamp: row[3])
+    reading
+  end
 
   def self.read_char
 
